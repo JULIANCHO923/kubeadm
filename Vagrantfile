@@ -64,6 +64,10 @@ Vagrant.configure("2") do |config|
     # Install (opinionated) configs for vim and tmux on master-1. These used by the author for CKA exam.
     node.vm.provision "file", source: "./ubuntu/tmux.conf", destination: "$HOME/.tmux.conf"
     node.vm.provision "file", source: "./ubuntu/vimrc", destination: "$HOME/.vimrc"
+    config.vm.provision "shell", :path => "ubuntu/networking.sh"
+    config.vm.provision "shell", :path => "ubuntu/setup-ContainerD.sh"
+    config.vm.provision "shell", :path => "ubuntu/setup-kube_tools.sh"
+    #config.vm.provision "shell", :path => "ubuntu/setup-kubemaster.sh"
   end
 
   # Provision Worker Nodes
@@ -78,6 +82,9 @@ Vagrant.configure("2") do |config|
       node.vm.network :private_network, ip: IP_NW + "#{NODE_IP_START + i}"
       node.vm.network "forwarded_port", guest: 22, host: "#{2720 + i}"
       provision_kubernetes_node node
+      config.vm.provision "shell", :path => "ubuntu/networking.sh"
+      config.vm.provision "shell", :path => "ubuntu/setup-ContainerD.sh"
+      config.vm.provision "shell", :path => "ubuntu/setup-kube_tools.sh"
     end
   end
 end
