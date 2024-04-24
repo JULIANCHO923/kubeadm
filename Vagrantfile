@@ -60,6 +60,7 @@ Vagrant.configure("2") do |config|
     node.vm.hostname = "kubemaster"
     node.vm.network :private_network, ip: IP_NW + "#{MASTER_IP_START}"
     node.vm.network "forwarded_port", guest: 22, host: "#{2710}"
+    node.vm.network "forwarded_port", guest: 8080, host: 8080
     provision_kubernetes_node node
     # Install (opinionated) configs for vim and tmux on master-1. These used by the author for CKA exam.
     node.vm.provision "file", source: "./ubuntu/tmux.conf", destination: "$HOME/.tmux.conf"
@@ -81,6 +82,7 @@ Vagrant.configure("2") do |config|
       node.vm.hostname = "kubenode0#{i}"
       node.vm.network :private_network, ip: IP_NW + "#{NODE_IP_START + i}"
       node.vm.network "forwarded_port", guest: 22, host: "#{2720 + i}"
+      node.vm.network "forwarded_port", guest: 8080, host: "#{808 + i}"
       provision_kubernetes_node node
       config.vm.provision "shell", :path => "ubuntu/networking.sh"
       config.vm.provision "shell", :path => "ubuntu/setup-ContainerD.sh"

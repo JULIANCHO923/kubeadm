@@ -5,13 +5,13 @@ Note: You must have VirtualBox and Vagrant configured at this point
 Download this github repository and cd into the vagrant folder
 
 ```bash
-git clone https://github.com/kodekloudhub/certified-kubernetes-administrator-course.git
+git clone https://github.com/JULIANCHO923/kubeadm.git
 ```
 
 CD into the virtualbox directory
 
 ```bash
-cd kubeadm-clusters/virtualbox
+cd kubeadm
 ```
 
 Run Vagrant up
