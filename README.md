@@ -62,7 +62,7 @@ kubeadm reset
 kubeadm init --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.56.11
 ```
 
-Your Kubernetes control-plane has initialized successfully! SAVE the join value
+Your Kubernetes control-plane has initialized successfully! **SAVE the join value**
 
 To start using your cluster, you need to run the following as a regular user:
 
@@ -110,30 +110,15 @@ spec:
 Then you can join any number of worker nodes by running the following on each as root:
 
 
+
 ```bash
 sudo su
 kubeadm reset
 ```
+
+Take the **join value**
+
 ```bash
 kubeadm join 192.168.56.11:6443 --token ?????????? \
         --discovery-token-ca-cert-hash ????????????
-```
-
-### Installing Kube Flow
-
-In the kubemaster vm, you can execute the following commands:
-
-```bash
-git clone https://github.com/kubeflow/manifests.git
-cd manifests/
-git checkout -b v1.5-branch --track origin/v1.5-branch
-snap install kustomize
-```
-
-```bash
-while ! kustomize build example | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 10; done
-```
-
-```bash
-kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80
 ```
